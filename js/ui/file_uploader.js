@@ -972,13 +972,15 @@ var FileUploader = Editor.inherit({
     },
 
     _isFileTypeAllowed: function(file, allowedTypes) {
+        var fileExtension = file.name.split(".").pop().toLowerCase();
+        
         for(var i = 0, n = allowedTypes.length; i < n; i++) {
             var allowedType = allowedTypes[i];
 
             if(allowedType[0] === ".") {
-                allowedType = allowedType.replace(".", "\\.");
+                allowedType = allowedType.replace(".", "\\.").toLowerCase();
 
-                if(file.name.match(allowedType)) {
+                if(fileExtension === allowedType) {
                     return true;
                 }
             } else {
